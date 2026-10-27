@@ -115,7 +115,7 @@
 /* Boton flotante de ubicacion */
 .btn-flotante {
   position: absolute;
-  bottom: 24px;
+  bottom: 90px;
   right: 16px;
   width: 56px;
   height: 56px;
@@ -145,7 +145,7 @@
 /* Leyenda del mapa */
 .leyenda-mapa {
   position: absolute;
-  bottom: 24px;
+  bottom: 90px;
   left: 16px;
   background: rgba(255,255,255,0.95);
   padding: 8px 12px;
