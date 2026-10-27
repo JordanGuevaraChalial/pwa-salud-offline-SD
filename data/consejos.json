@@ -1,0 +1,110 @@
+[
+  {
+    "id": "CN001",
+    "titulo": "Infusion de manzanilla para malestar estomacal",
+    "categoria": "Digestivo",
+    "descripcion": "La manzanilla ayuda a calmar espasmos gastricos, reducir la inflamacion del estomago y aliviar la indigestion leve.",
+    "ingredientes": ["1 cucharadita de flores de manzanilla seca", "1 taza de agua", "Miel o limon al gusto (opcional)"],
+    "modoPreparacion": "Hervir el agua. Retirar del fuego, agregar las flores de manzanilla, tapar y dejar reposar 5-10 minutos. Colar y endulzar al gusto. Tomar 2-3 veces al dia despues de las comidas.",
+    "precauciones": "No exceder 3 tazas al dia. Personas alergicas a plantas de la familia de las margaritas deben evitarla. Si los sintomas persisten mas de 3 dias o hay sangre, consultar al medico inmediatamente."
+  },
+  {
+    "id": "CN002",
+    "titulo": "Te de jengibre para nauseas y mareos",
+    "categoria": "Digestivo",
+    "descripcion": "El jengibre es reconocido por su efectividad para reducir las nauseas, los mareos por movimiento y las molestias estomacales.",
+    "ingredientes": ["1 rodaja de jengibre fresco (2-3 cm)", "1 taza de agua", "Miel al gusto (opcional)"],
+    "modoPreparacion": "Rallar o cortar el jengibre en laminas delgadas. Hervir en agua durante 10 minutos. Colar, endulzar y tomar tibio. Puede tomarse antes de viajes para prevenir mareos.",
+    "precauciones": "No consumir en exceso (maximo 4g al dia). Personas con calculos biliares o que tomen anticoagulantes deben consultar al medico. No recomendado para mujeres embarazadas sin supervision medica."
+  },
+  {
+    "id": "CN003",
+    "titulo": "Vahos de eucalipto para congestion respiratoria",
+    "categoria": "Respiratorio",
+    "descripcion": "Los vahos de eucalipto ayudan a descongestionar las vias respiratorias, aliviar la tos y facilitar la respiracion en resfriados comunes.",
+    "ingredientes": ["5-10 hojas de eucalipto frescas o 5 gotas de aceite esencial de eucalipto", "1 litro de agua"],
+    "modoPreparacion": "Hervir el agua con las hojas de eucalipto durante 5 minutos. Retirar del fuego, colocar la cabeza sobre el recipiente cubriendola con una toalla, e inhalar el vapor profundamente durante 10-15 minutos. Repetir 2-3 veces al dia.",
+    "precauciones": "Mantener distancia para evitar quemaduras con el vapor. No usar en ninos menores de 2 anos. Personas con asma deben usar con precaucion, ya que puede desencadenar broncoespasmos. Si hay fiebre alta o dificultad para respirar, acudir al medico."
+  },
+  {
+    "id": "CN004",
+    "titulo": "Te de tilo para estres y dificultad para dormir",
+    "categoria": "General",
+    "descripcion": "El tilo (tilia) tiene propiedades relajantes que ayudan a reducir la ansiedad, el estres y a conciliar el sueno.",
+    "ingredientes": ["1 cucharadita de flores de tilo secas", "1 taza de agua"],
+    "modoPreparacion": "Hervir el agua, retirar del fuego, agregar las flores de tilo, tapar y dejar reposar 10 minutos. Colar y tomar tibio 30 minutos antes de dormir o en momentos de ansiedad.",
+    "precauciones": "No exceder 3 tazas al dia. Puede causar somnolencia, por lo que no se recomienda conducir despues de consumirlo. Si el insomnio persiste mas de 2 semanas, consultar al medico."
+  },
+  {
+    "id": "CN005",
+    "titulo": "Aloe vera para quemaduras leves e irritaciones cutaneas",
+    "categoria": "Cutaneo",
+    "descripcion": "El gel de aloe vera tiene propiedades antiinflamatorias, cicatrizantes y refrescantes que alivian quemaduras de sol leves e irritaciones de la piel.",
+    "ingredientes": ["1 hoja fresca de aloe vera (sabila)"],
+    "modoPreparacion": "Cortar una hoja de aloe vera, extraer el gel transparente del interior y aplicar directamente sobre la piel limpia y afectada. Dejar actuar 20-30 minutos y enjuagar con agua tibia. Repetir 2-3 veces al dia.",
+    "precauciones": "Solo para uso externo. No aplicar sobre heridas abiertas o quemaduras de segundo/tercer grado. Realizar una prueba de sensibilidad en una pequena zona primero. Si hay dolor intenso, ampollas o signos de infeccion, acudir al medico."
+  },
+  {
+    "id": "CN006",
+    "titulo": "Compresas frias de arnica para golpes y moretones",
+    "categoria": "Dolor e Inflamacion",
+    "descripcion": "El arnica montana es conocido por reducir la inflamacion, aliviar el dolor y acelerar la absorcion de moretones despues de golpes leves.",
+    "ingredientes": ["1 cucharada de flores de arnica seca", "1 taza de agua", "Gasa o tela limpia"],
+    "modoPreparacion": "Hervir el agua con el arnica durante 5 minutos, dejar enfriar completamente. Humedecer la gasa en la infusion fria y aplicar sobre la zona afectada durante 15 minutos. Repetir 3 veces al dia.",
+    "precauciones": "SOLO USO EXTERNO. Nunca ingerir arnica, es toxico por via oral. No aplicar sobre piel rota o heridas abiertas. Suspender si aparece irritacion. Si el dolor es intenso o hay deformidad, acudir a traumatologia."
+  },
+  {
+    "id": "CN007",
+    "titulo": "Te de menta para dolor de cabeza leve",
+    "categoria": "General",
+    "descripcion": "La menta piperita tiene efecto relajante muscular que puede aliviar dolores de cabeza tensionales leves y mejorar la concentracion.",
+    "ingredientes": ["5-10 hojas frescas de menta o 1 cucharadita de menta seca", "1 taza de agua"],
+    "modoPreparacion": "Hervir el agua, retirar del fuego, agregar la menta, tapar y reposar 5 minutos. Colar y tomar tibio. Tambien puede inhalarse el vapor para alivio mas rapido.",
+    "precauciones": "No usar en ninos menores de 6 anos. Personas con reflujo gastroesofagico deben usarlo con precaucion. Si el dolor de cabeza es intenso, repentino o acompanado de fiebre, acudir al medico inmediatamente."
+  },
+  {
+    "id": "CN008",
+    "titulo": "Gargaras de agua con sal para dolor de garganta",
+    "categoria": "Respiratorio",
+    "descripcion": "Las gargaras de agua tibia con sal reducen la inflamacion, alivian el dolor y ayudan a eliminar bacterias en irritaciones leves de garganta.",
+    "ingredientes": ["1/2 cucharadita de sal de mesa", "1 taza de agua tibia"],
+    "modoPreparacion": "Disolver la sal en el agua tibia. Hacer gargaras profundas durante 30 segundos y escupir. Repetir cada 3-4 horas. No ingerir la mezcla.",
+    "precauciones": "No usar agua caliente (puede quemar). No recomendado para ninos pequenos que no saben hacer gargaras. Si el dolor persiste mas de 3 dias, hay fiebre o dificultad para tragar, consultar al medico."
+  },
+  {
+    "id": "CN009",
+    "titulo": "Agua de coco para deshidratacion leve",
+    "categoria": "General",
+    "descripcion": "El agua de coco natural es rica en electrolitos (potasio, sodio, magnesio) que ayudan a rehidratar el cuerpo despues de diarrea leve, ejercicio intenso o calor excesivo.",
+    "ingredientes": ["1 coco verde fresco (agua de coco natural)"],
+    "modoPreparacion": "Abrir el coco verde y consumir el agua fresca, sin agregar azucar. Tomar 2-3 vasos al dia en casos de deshidratacion leve.",
+    "precauciones": "Personas con enfermedad renal o presion arterial alta deben consultar al medico por su contenido de potasio. No sustituye sueros orales oficiales en casos de deshidratacion moderada o severa. Si hay diarrea con sangre o fiebre alta, acudir al medico."
+  },
+  {
+    "id": "CN010",
+    "titulo": "Cataplasma de avena para picazon de piel",
+    "categoria": "Cutaneo",
+    "descripcion": "La avena coloidal tiene propiedades antiinflamatorias y antipruriginosas que alivian la picazon causada por dermatitis, picaduras de insecto o piel seca.",
+    "ingredientes": ["1/2 taza de avena en hojuelas molida", "Agua tibia", "Gasa o tela limpia"],
+    "modoPreparacion": "Molerse la avena hasta obtener un polvo fino. Mezclar con agua tibia hasta formar una pasta. Envolver en la gasa y aplicar sobre la zona con picazon durante 15-20 minutos. Repetir 2 veces al dia.",
+    "precauciones": "Solo para uso externo. Si la picazon es generalizada, hay fiebre o las lesiones se infectan, consultar al dermatologo. No aplicar sobre piel rota."
+  },
+  {
+    "id": "CN011",
+    "titulo": "Te de canela para dolor menstrual leve",
+    "categoria": "Dolor e Inflamacion",
+    "descripcion": "La canela tiene propiedades antiespasmodicas y antiinflamatorias que pueden reducir los colicos menstruales leves.",
+    "ingredientes": ["1 raja de canela o 1/2 cucharadita de canela en polvo", "1 taza de agua"],
+    "modoPreparacion": "Hervir la canela en agua durante 5 minutos. Retirar, colar y tomar tibio 2-3 veces al dia durante los dias de colico. Puede agregarse una rodaja de manzana para mejorar el sabor.",
+    "precauciones": "No consumir en exceso. Mujeres embarazadas deben evitar dosis altas. Si el dolor es intenso, incapacitante o acompanado de sangrado abundante, consultar al ginecologo."
+  },
+  {
+    "id": "CN012",
+    "titulo": "Infusion de hinojo para gases y distension abdominal",
+    "categoria": "Digestivo",
+    "descripcion": "El hinojo ayuda a reducir la formacion de gases intestinales, alivia la distension abdominal y mejora la digestion.",
+    "ingredientes": ["1 cucharadita de semillas de hinojo", "1 taza de agua"],
+    "modoPreparacion": "Ligeramente moler las semillas de hinojo. Hervir en agua durante 5 minutos, tapar y dejar reposar otros 5. Colar y tomar despues de las comidas principales.",
+    "precauciones": "No exceder 2-3 tazas al dia. Personas con epilepsia deben evitarlo. Si la distension es persistente, hay dolor intenso o perdida de peso, consultar al gastroenterologo."
+  }
+]

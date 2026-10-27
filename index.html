@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es-EC">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description"
+    content="PWA de geolocalizacion medica y asistencia sanitaria offline para el canton Santo Domingo">
+  <meta name="theme-color" content="#1E88E5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="SaludOfflineSD">
+
+  <title>Salud Offline Santo Domingo</title>
+
+  <!-- Manifest para PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Iconos para iOS -->
+  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon-192x192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-96x96.png">
+
+  <!-- Hojas de estilo -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Leaflet CSS (luego se almacena en cache para offline) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+
+<body>
+
+  <!-- ===== BARRA SUPERIOR ===== -->
+  <header class="app-header" role="banner">
+    <div class="header-content">
+      <div class="app-title">
+        <span class="app-icon" aria-hidden="true">🏥</span>
+        <div>
+          <h1>Salud Offline</h1>
+          <p class="app-subtitle">Santo Domingo</p>
+        </div>
+      </div>
+      <div id="estado-conexion" class="estado-conexion" role="status" aria-live="polite">
+        <span class="indicador" id="indicador-conexion"></span>
+        <span class="texto-estado" id="texto-conexion">Verificando...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="app-main" id="app-main" role="main">
+
+    <!-- ===== PANTALLA: INICIO ===== -->
+    <section id="pantalla-inicio" class="pantalla activa" aria-label="Pantalla de inicio">
+      <div class="bienvenida">
+        <h2>Bienvenido/a</h2>
+        <p>Esta aplicacion te ayuda a encontrar centros medicos y recibir orientacion de salud <strong>aunque no tengas
+            internet</strong>.</p>
+      </div>
+
+      <div class="tarjetas-menu" role="navigation" aria-label="Menu principal">
+        <button class="tarjeta-menu tarjeta-mapa" onclick="UI.mostrarPantalla('mapa')"
+          aria-label="Abrir mapa de centros medicos">
+          <span class="tarjeta-icono" aria-hidden="true">🗺️</span>
+          <div class="tarjeta-texto">
+            <h3>Mapa de centros medicos</h3>
+            <p>Ubica centros de salud cerca de ti</p>
+          </div>
+          <span class="tarjeta-flecha" aria-hidden="true">→</span>
+        </button>
+
+        <button class="tarjeta-menu tarjeta-sintomas" onclick="UI.mostrarPantalla('sintomas')"
+          aria-label="Abrir asistencia por sintomas">
+          <span class="tarjeta-icono" aria-hidden="true">🩺</span>
+          <div class="tarjeta-texto">
+            <h3>Asistencia por sintomas</h3>
+            <p>Identifica la especialidad que necesitas</p>
+          </div>
+          <span class="tarjeta-flecha" aria-hidden="true">→</span>
+        </button>
+
+        <button class="tarjeta-menu tarjeta-consejos" onclick="UI.mostrarPantalla('consejos')"
+          aria-label="Abrir consejos de medicina natural">
+          <span class="tarjeta-icono" aria-hidden="true">🌿</span>
+          <div class="tarjeta-texto">
+            <h3>Consejos de medicina natural</h3>
+            <p>Recomendaciones complementarias</p>
+          </div>
+          <span class="tarjeta-flecha" aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <!-- Aviso legal siempre visible en inicio -->
+      <div class="aviso-legal-destacado" role="alert">
+        <p><strong>⚠️ IMPORTANTE:</strong> Esta aplicacion es una herramienta de apoyo informativo. <strong>NO sustituye
+            la consulta medica profesional.</strong> Ante emergencias, acuda inmediatamente al centro de salud mas
+          cercano.</p>
+      </div>
+
+      <!-- Boton de instalacion (aparece si el navegador lo soporta) -->
+      <div id="banner-instalacion" class="banner-instalacion" hidden>
+        <p>📱 Instala esta aplicacion en tu telefono para usarla sin internet</p>
+        <button id="btn-instalar" class="btn-principal">Instalar</button>
+        <button id="btn-cerrar-banner" class="btn-secundario" aria-label="Cerrar banner de instalacion">✕</button>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: MAPA ===== -->
+    <section id="pantalla-mapa" class="pantalla" aria-label="Mapa de centros medicos" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
+        <div class="buscador-wrapper">
+          <input type="search" id="busqueda-mapa" placeholder="Buscar centro medico..."
+            aria-label="Buscar centro medico">
+        </div>
+        <button class="btn-icono" onclick="UI.mostrarFiltros()" aria-label="Abrir filtros">🔍</button>
+      </div>
+
+      <!-- Panel de filtros (oculto por defecto) -->
+      <div id="panel-filtros" class="panel-filtros" hidden>
+        <h4>Filtrar por:</h4>
+        <div class="filtro-grupo">
+          <label>Tipo de centro:</label>
+          <div class="checkbox-group" id="filtro-tipo">
+            <label><input type="checkbox" value="Hospital" checked> Hospital</label>
+            <label><input type="checkbox" value="Centro de Salud" checked> Centro de Salud</label>
+            <label><input type="checkbox" value="Clinica" checked> Clinica</label>
+            <label><input type="checkbox" value="Centro Ambulatorio" checked> Centro Ambulatorio</label>
+          </div>
+        </div>
+        <div class="filtro-grupo">
+          <label>Institucion:</label>
+          <select id="filtro-institucion">
+            <option value="">Todas</option>
+            <option value="MSP">MSP</option>
+            <option value="IESS">IESS</option>
+            <option value="Municipal">Municipal</option>
+            <option value="Privado">Privado</option>
+          </select>
+        </div>
+        <div class="filtro-botones">
+          <button class="btn-principal" onclick="Mapa.aplicarFiltros()">Aplicar</button>
+          <button class="btn-secundario" onclick="UI.cerrarFiltros()">Cerrar</button>
+        </div>
+      </div>
+
+      <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos"></div>
+
+      <!-- Botones flotantes -->
+      <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">
+        📍
+      </button>
+
+      <!-- Leyenda del mapa -->
+      <div class="leyenda-mapa">
+        <span><span class="leyenda-color" style="background:#E53935"></span> Hospital</span>
+        <span><span class="leyenda-color" style="background:#1E88E5"></span> Centro de Salud</span>
+        <span><span class="leyenda-color" style="background:#FB8C00"></span> Clinica</span>
+        <span><span class="leyenda-color" style="background:#8E24AA"></span> IESS</span>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: FICHA DE CENTRO MEDICO ===== -->
+    <section id="pantalla-ficha-centro" class="pantalla" aria-label="Ficha de centro medico" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('mapa')" aria-label="Volver al mapa">← Atras</button>
+        <h3 id="ficha-nombre-corto">Centro Medico</h3>
+      </div>
+      <div id="ficha-contenido" class="ficha-contenido">
+        <!-- Se llena dinamicamente con JavaScript -->
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: ASISTENCIA POR SINTOMAS ===== -->
+    <section id="pantalla-sintomas" class="pantalla" aria-label="Asistencia por sintomas" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="Sintomas.anteriorPregunta()" aria-label="Pregunta anterior">← Atras</button>
+        <div class="progreso-sintomas">Pregunta <span id="num-pregunta">1</span></div>
+        <button class="btn-icono" onclick="Sintomas.reiniciar()" aria-label="Reiniciar evaluacion">🔄</button>
+      </div>
+
+      <!-- Barra de progreso visual -->
+      <div class="barra-progreso">
+        <div id="progreso-fill" class="progreso-fill" style="width: 10%"></div>
+      </div>
+
+      <div id="contenido-sintomas" class="contenido-sintomas">
+        <!-- Se llena dinamicamente con JavaScript -->
+      </div>
+
+      <div class="aviso-sintomas" role="note">
+        ⚠️ Esta guia es orientativa. <strong>NO sustituye la consulta medica profesional.</strong>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: CONSEJOS NATURALES ===== -->
+    <section id="pantalla-consejos" class="pantalla" aria-label="Consejos de medicina natural" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
+        <h3>Consejos Naturales</h3>
+      </div>
+
+      <div class="aviso-consejos-top" role="alert">
+        ⚠️ Consejos complementarios. <strong>NO sustituyen tratamiento medico.</strong>
+      </div>
+
+      <div class="buscador-consejos">
+        <input type="search" id="busqueda-consejos" placeholder="Buscar consejo por palabra clave..."
+          aria-label="Buscar consejo">
+        <select id="filtro-categoria-consejo" aria-label="Filtrar por categoria">
+          <option value="">Todas las categorias</option>
+          <option value="Respiratorio">Respiratorio</option>
+          <option value="Digestivo">Digestivo</option>
+          <option value="Cutaneo">Cutaneo</option>
+          <option value="Dolor e Inflamacion">Dolor e Inflamacion</option>
+          <option value="General">General</option>
+        </select>
+      </div>
+
+      <div id="lista-consejos" class="lista-consejos">
+        <!-- Se llena dinamicamente -->
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: FICHA DE CONSEJO ===== -->
+    <section id="pantalla-ficha-consejo" class="pantalla" aria-label="Detalle de consejo natural" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('consejos')" aria-label="Volver a consejos">←
+          Atras</button>
+        <h3>Detalle del Consejo</h3>
+      </div>
+      <div id="ficha-consejo-contenido" class="ficha-contenido">
+        <!-- Se llena dinamicamente -->
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: ACERCA DE ===== -->
+    <section id="pantalla-acerca" class="pantalla" aria-label="Acerca de la aplicacion" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
+        <h3>Acerca de</h3>
+      </div>
+      <div class="contenido-pagina">
+        <div class="app-info">
+          <span class="app-icon-grande" aria-hidden="true">🏥</span>
+          <h4>Salud Offline Santo Domingo</h4>
+          <p>Version: <strong id="app-version">1.0.0</strong></p>
+          <p>Version de datos: <strong id="datos-version">1.0.0</strong> (Actualizado: <span
+              id="datos-fecha">2026-10-01</span>)</p>
+        </div>
+        <div class="info-seccion">
+          <h5>📋 Sobre el proyecto</h5>
+          <p>Aplicacion Web Progresiva (PWA) desarrollada como proyecto de titulacion en la Universidad de las Fuerzas
+            Armadas ESPE. Proporciona geolocalizacion de centros medicos y asistencia sanitaria basica sin necesidad de
+            conexion a internet.</p>
+        </div>
+        <div class="info-seccion">
+          <h5>🏥 Fuentes de datos</h5>
+          <ul>
+            <li>Ministerio de Salud Publica (MSP) - Ecuador</li>
+            <li>Instituto Ecuatoriano de Seguridad Social (IESS)</li>
+            <li>GAD Municipal de Santo Domingo</li>
+            <li>OpenStreetMap (datos cartograficos)</li>
+          </ul>
+        </div>
+        <div class="info-seccion">
+          <h5>👨‍💻 Desarrollo</h5>
+          <p>Estudiante: [Tu nombre]</p>
+          <p>Tutor: Ing. Pablo Francisco Puente Ponce</p>
+          <p>Carrera: Ingenieria en Tecnologias de la Informacion</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: CONFIGURACION ===== -->
+    <section id="pantalla-configuracion" class="pantalla" aria-label="Configuracion" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
+        <h3>Configuracion</h3>
+      </div>
+      <div class="contenido-pagina">
+        <div class="config-item">
+          <h5>💾 Almacenamiento local</h5>
+          <p>Espacio ocupado: <strong id="almacenamiento-uso">Calculando...</strong></p>
+          <button class="btn-peligro" onclick="DB.limpiarDatos()">🗑️ Borrar datos almacenados</button>
+        </div>
+        <div class="config-item">
+          <h5>🔄 Actualizar datos</h5>
+          <p>Cuando tengas internet, puedes actualizar la base de datos de centros medicos.</p>
+          <button class="btn-principal" onclick="DB.actualizarDatos()">Actualizar datos</button>
+        </div>
+        <div class="config-item">
+          <h5>🔔 Alertas de proximidad</h5>
+          <p>Recibe una notificacion cuando estes cerca de un centro medico (menos de 500m). Funciona sin internet.</p>
+          <button class="btn-principal" onclick="Geofencing.iniciarMonitoreo()">🔔 Activar alertas</button>
+          <button class="btn-secundario mt-1" onclick="Geofencing.detenerMonitoreo()">🔕 Desactivar</button>
+        </div>
+        <div class="config-item">
+          <h5>📱 Estado de la aplicacion</h5>
+          <p>Service Worker: <strong id="sw-estado">Verificando...</strong></p>
+          <p>Base de datos IndexedDB: <strong id="db-estado">Verificando...</strong></p>
+          <p>Centros medicos cargados: <strong id="centros-cantidad">0</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA: AVISOS LEGALES ===== -->
+    <section id="pantalla-legal" class="pantalla" aria-label="Avisos legales y privacidad" hidden>
+      <div class="barra-herramientas">
+        <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
+        <h3>Avisos Legales</h3>
+      </div>
+      <div class="contenido-pagina contenido-legal">
+        <div class="legal-seccion">
+          <h5>⚠️ ADVERTENCIA MEDICA</h5>
+          <p>Esta aplicacion web progresiva ha sido desarrollada con fines exclusivamente informativos y educativos como
+            parte de un proyecto de investigacion academica.</p>
+          <ul>
+            <li>La informacion proporcionada <strong>NO constituye una consulta medica, diagnostico o
+                tratamiento</strong>.</li>
+            <li>El modulo de asistencia por sintomas es una guia orientativa que <strong>NO sustituye la evaluacion de
+                un profesional de la salud</strong>.</li>
+            <li>Los consejos de medicina natural son de caracter complementario y <strong>NO reemplazan los tratamientos
+                medicos recetados</strong>.</li>
+            <li>Ante cualquier emergencia medica, <strong>acuda inmediatamente al centro de salud mas cercano</strong> o
+              contacte los servicios de emergencia oficiales (911).</li>
+          </ul>
+        </div>
+        <div class="legal-seccion">
+          <h5>🔒 PRIVACIDAD DE DATOS (LOPDP)</h5>
+          <p>En cumplimiento de la Ley Organica de Proteccion de Datos Personales (LOPDP) de Ecuador:</p>
+          <ul>
+            <li>Esta aplicacion <strong>NO recopila, almacena ni transmite datos personales</strong> de los usuarios.
+            </li>
+            <li>La geolocalizacion se procesa <strong>EXCLUSIVAMENTE en la memoria RAM del dispositivo</strong> y NO se
+              guarda en ningun servidor ni base de datos externa.</li>
+            <li>Los datos almacenados localmente (IndexedDB y cache) corresponden unicamente a informacion publica de
+              centros medicos y configuraciones de la aplicacion.</li>
+            <li>El usuario puede eliminar todos los datos almacenados en cualquier momento desde la seccion de
+              Configuracion.</li>
+          </ul>
+        </div>
+        <div class="legal-seccion">
+          <h5>📋 INFORMACION TECNICA</h5>
+          <p>Desarrollador: Estudiante de Ingenieria en Tecnologias de la Informacion, ESPE</p>
+          <p>Tutor: Ing. Pablo Francisco Puente Ponce</p>
+          <p>Version de la aplicacion: 1.0.0</p>
+          <p>Version de datos de centros medicos: 1.0.0 (octubre 2026)</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== NAVEGACION INFERIOR ===== -->
+  <nav class="nav-inferior" role="navigation" aria-label="Navegacion principal">
+    <button class="nav-item activo" data-pantalla="inicio" onclick="UI.mostrarPantalla('inicio')" aria-label="Inicio">
+      <span class="nav-icono" aria-hidden="true">🏠</span>
+      <span class="nav-texto">Inicio</span>
+    </button>
+    <button class="nav-item" data-pantalla="mapa" onclick="UI.mostrarPantalla('mapa')" aria-label="Mapa">
+      <span class="nav-icono" aria-hidden="true">🗺️</span>
+      <span class="nav-texto">Mapa</span>
+    </button>
+    <button class="nav-item" data-pantalla="sintomas" onclick="UI.mostrarPantalla('sintomas')" aria-label="Sintomas">
+      <span class="nav-icono" aria-hidden="true">🩺</span>
+      <span class="nav-texto">Sintomas</span>
+    </button>
+    <button class="nav-item" data-pantalla="acerca" onclick="UI.mostrarPantalla('acerca')" aria-label="Mas opciones">
+      <span class="nav-icono" aria-hidden="true">⚙️</span>
+      <span class="nav-texto">Ajustes</span>
+    </button>
+  </nav>
+
+  <!-- ===== MODAL DE EMERGENCIA (se muestra cuando el resultado es emergencia) ===== -->
+  <div id="modal-emergencia" class="modal-overlay" hidden role="dialog" aria-modal="true"
+    aria-labelledby="modal-titulo">
+    <div class="modal-contenido modal-emergencia">
+      <h3 id="modal-titulo">⚠️ POSIBLE EMERGENCIA MEDICA</h3>
+      <p>Los sintomas que describes podrian requerir atencion inmediata.</p>
+      <p><strong>Acude inmediatamente al servicio de emergencia mas cercano o llama al 911.</strong></p>
+      <button class="btn-principal" onclick="UI.cerrarModalEmergencia()">Entendido</button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST PARA NOTIFICACIONES ===== -->
+  <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Modulos de la aplicacion -->
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/sintomas.js"></script>
+  <script src="js/consejos.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/geofencing.js"></script>
+
+  <!-- Registro del Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function (registration) {
+            console.log('[PWA] Service Worker registrado:', registration.scope);
+            document.getElementById('sw-estado').textContent = 'Activo ✓';
+          })
+          .catch(function (error) {
+            console.log('[PWA] Error al registrar Service Worker:', error);
+            document.getElementById('sw-estado').textContent = 'No disponible';
+          });
+      });
+    } else {
+      document.getElementById('sw-estado').textContent = 'No soportado por el navegador';
+    }
+
+    // Banner de instalacion (A2HS - Add to Home Screen)
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      var banner = document.getElementById('banner-instalacion');
+      if (banner) banner.hidden = false;
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var btnInstalar = document.getElementById('btn-instalar');
+      if (btnInstalar) {
+        btnInstalar.addEventListener('click', function () {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function () {
+              deferredPrompt = null;
+              document.getElementById('banner-instalacion').hidden = true;
+            });
+          }
+        });
+      }
+      var btnCerrarBanner = document.getElementById('btn-cerrar-banner');
+      if (btnCerrarBanner) {
+        btnCerrarBanner.addEventListener('click', function () {
+          document.getElementById('banner-instalacion').hidden = true;
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>

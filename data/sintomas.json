@@ -1,0 +1,283 @@
+{
+  "preguntaInicial": "INICIO",
+  "nodos": {
+    "INICIO": {
+      "pregunta": "¿Cual es la zona principal de tus molestias?",
+      "opciones": [
+        { "texto": "Cabeza / Sistema nervioso", "siguiente": "CABEZA_01" },
+        { "texto": "Sistema respiratorio / Torax", "siguiente": "RESP_01" },
+        { "texto": "Sistema digestivo / Abdomen", "siguiente": "DIG_01" },
+        { "texto": "Huesos / Musculos / Articulaciones", "siguiente": "OST_01" },
+        { "texto": "Piel / Tejidos cutaneos", "siguiente": "PIEL_01" },
+        { "texto": "Sistema genitourinario", "siguiente": "GU_01" },
+        { "texto": "Sintomas generales / No estoy seguro", "siguiente": "GEN_01" }
+      ],
+      "esResultado": false
+    },
+    "CABEZA_01": {
+      "pregunta": "¿Tienes dolor de cabeza intenso y repentino?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "CABEZA_02" },
+        { "texto": "NO", "siguiente": "CABEZA_03" }
+      ],
+      "esResultado": false
+    },
+    "CABEZA_02": {
+      "pregunta": "¿Ademas tienes fiebre, rigidez en el cuello o vision borrosa?",
+      "opciones": [
+        { "texto": "SI, tengo uno o mas de estos", "siguiente": "RES_EMERGENCIA" },
+        { "texto": "NO, solo dolor de cabeza", "siguiente": "RES_NEUROLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "CABEZA_03": {
+      "pregunta": "¿Tienes mareos, perdida de equilibrio o zumbidos en los oidos?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_NEURO_OTORRINO" },
+        { "texto": "NO", "siguiente": "CABEZA_04" }
+      ],
+      "esResultado": false
+    },
+    "CABEZA_04": {
+      "pregunta": "¿Tienes problemas de vision, dolor ocular o secrecion en los ojos?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_OFTALMOLOGIA" },
+        { "texto": "NO, solo malestar general en la cabeza", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "RESP_01": {
+      "pregunta": "¿Tienes dificultad para respirar o dolor fuerte en el pecho?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_EMERGENCIA" },
+        { "texto": "NO", "siguiente": "RESP_02" }
+      ],
+      "esResultado": false
+    },
+    "RESP_02": {
+      "pregunta": "¿Tienes tos, fiebre, dolor de garganta o secrecion nasal por mas de 3 dias?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_NEUMOLOGIA" },
+        { "texto": "NO", "siguiente": "RESP_03" }
+      ],
+      "esResultado": false
+    },
+    "RESP_03": {
+      "pregunta": "¿Tienes estornudos frecuentes, picazon en ojos o nariz, o alergia conocida?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_ALERGOLOGIA" },
+        { "texto": "NO", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "DIG_01": {
+      "pregunta": "¿Tienes dolor abdominal intenso y repentino?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "DIG_02" },
+        { "texto": "NO, es un dolor leve o moderado", "siguiente": "DIG_03" }
+      ],
+      "esResultado": false
+    },
+    "DIG_02": {
+      "pregunta": "¿El dolor esta acompañado de vomitos persistentes, sangre o fiebre alta?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_EMERGENCIA" },
+        { "texto": "NO", "siguiente": "RES_GASTROENTEROLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "DIG_03": {
+      "pregunta": "¿Tienes diarrea, nauseas, acidez o indigestion?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_GASTROENTEROLOGIA" },
+        { "texto": "NO", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "OST_01": {
+      "pregunta": "¿El dolor aparecio despues de un golpe, caida o esfuerzo fisico fuerte?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "OST_02" },
+        { "texto": "NO, aparecio sin causa aparente", "siguiente": "OST_03" }
+      ],
+      "esResultado": false
+    },
+    "OST_02": {
+      "pregunta": "¿Hay deformidad, incapacidad para mover la zona o hinchazon severa?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_EMERGENCIA" },
+        { "texto": "NO", "siguiente": "RES_TRAUMATOLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "OST_03": {
+      "pregunta": "¿El dolor es cronico (mas de 2 semanas) o empeora con el movimiento?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_REUMATOLOGIA" },
+        { "texto": "NO, es reciente y leve", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "PIEL_01": {
+      "pregunta": "¿Tienes erupciones, ronchas o picazon intensa en la piel?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "PIEL_02" },
+        { "texto": "NO, tengo heridas o lunares que me preocupan", "siguiente": "RES_DERMATOLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "PIEL_02": {
+      "pregunta": "¿La erupcion aparecio repentinamente en todo el cuerpo y tienes dificultad para respirar?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_EMERGENCIA" },
+        { "texto": "NO, es localizada", "siguiente": "RES_DERMATOLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "GU_01": {
+      "pregunta": "¿Tienes dolor o dificultad al orinar?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "GU_02" },
+        { "texto": "NO, tengo otras molestias", "siguiente": "GU_03" }
+      ],
+      "esResultado": false
+    },
+    "GU_02": {
+      "pregunta": "¿Hay sangre en la orina o fiebre acompañante?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_UROLOGIA" },
+        { "texto": "NO", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "GU_03": {
+      "pregunta": "¿Eres mujer y tienes dudas sobre embarazo, salud reproductiva o flujo anormal?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_GINECOLOGIA" },
+        { "texto": "NO / Soy hombre", "siguiente": "RES_UROLOGIA" }
+      ],
+      "esResultado": false
+    },
+    "GEN_01": {
+      "pregunta": "¿Tienes fiebre persistente por mas de 3 dias?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_INFECTOLOGIA" },
+        { "texto": "NO", "siguiente": "GEN_02" }
+      ],
+      "esResultado": false
+    },
+    "GEN_02": {
+      "pregunta": "¿Tienes fatiga extrema, perdida de peso sin razon o malestar general prolongado?",
+      "opciones": [
+        { "texto": "SI", "siguiente": "RES_MEDICINA_INTERNA" },
+        { "texto": "NO, me siento bien pero no sabia que elegir", "siguiente": "RES_MEDICINA_GENERAL" }
+      ],
+      "esResultado": false
+    },
+    "RES_EMERGENCIA": {
+      "esResultado": true,
+      "especialidad": "Emergencia Medica",
+      "descripcion": "Los sintomas que describes podrian indicar una situacion que requiere atencion medica inmediata. No esperes a que empeore.",
+      "esEmergencia": true,
+      "recomendacion": "ACUDE INMEDIATAMENTE al servicio de emergencia mas cercano o llama al 911. No te automediques."
+    },
+    "RES_NEUROLOGIA": {
+      "esResultado": true,
+      "especialidad": "Neurologia",
+      "descripcion": "Tu sintomatologia sugiere que podrias necesitar evaluacion neurologica. El dolor de cabeza intenso puede tener diversas causas que requieren estudio profesional.",
+      "esEmergencia": false,
+      "recomendacion": "Agenda una consulta con un neurologo para una evaluacion completa. Si el dolor se intensifica, acude a emergencia."
+    },
+    "RES_NEURO_OTORRINO": {
+      "esResultado": true,
+      "especialidad": "Neurologia / Otorrinolaringologia",
+      "descripcion": "Los mareos y problemas de equilibrio pueden estar relacionados con el sistema nervioso o el oido interno.",
+      "esEmergencia": false,
+      "recomendacion": "Consulta primero con Medicina General para que te refiera al especialista adecuado segun tu evaluacion."
+    },
+    "RES_OFTALMOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Oftalmologia",
+      "descripcion": "Los problemas de vision y dolor ocular requieren evaluacion por un oftalmologo para descartar condiciones que puedan afectar tu vision permanentemente.",
+      "esEmergencia": false,
+      "recomendacion": "Agenda una consulta oftalmologica. Si tienes perdida repentina de vision, acude a emergencia inmediatamente."
+    },
+    "RES_NEUMOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Neumologia / Medicina General",
+      "descripcion": "Los sintomas respiratorios persistentes pueden indicar una infeccion respiratoria, asma u otra condicion que requiere evaluacion.",
+      "esEmergencia": false,
+      "recomendacion": "Consulta con Medicina General primero. Si los sintomas persisten o empeoran, te referiran a neumologia."
+    },
+    "RES_ALERGOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Alergologia / Otorrinolaringologia",
+      "descripcion": "Los sintomas sugieren una posible reaccion alergica o rinitis alergica.",
+      "esEmergencia": false,
+      "recomendacion": "Consulta con Medicina General para evaluacion y posible referencia a alergologia. Evita los factores desencadenantes conocidos."
+    },
+    "RES_GASTROENTEROLOGIA": {
+      "esResultado": true,
+      "especialidad": "Gastroenterologia / Medicina General",
+      "descripcion": "Los sintomas digestivos pueden deberse a infecciones, gastritis, ulceras u otras condiciones del sistema digestivo.",
+      "esEmergencia": false,
+      "recomendacion": "Mantente hidratado y evita alimentos irritantes. Consulta con Medicina General; si persisten mas de 3 dias, solicita referencia a gastroenterologia."
+    },
+    "RES_TRAUMATOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Traumatologia / Fisiatria",
+      "descripcion": "El dolor post-traumatico puede ser un esguince, distension muscular o lesion que requiere evaluacion.",
+      "esEmergencia": false,
+      "recomendacion": "Aplica frio local y reposo. Si el dolor no cede en 48 horas o hay imposibilidad de mover la zona, acude a traumatologia."
+    },
+    "RES_REUMATOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Reumatologia / Traumatologia",
+      "descripcion": "El dolor cronico en articulaciones puede indicar artritis, tendinitis u otras condiciones reumatologicas.",
+      "esEmergencia": false,
+      "recomendacion": "Consulta con Medicina General para evaluacion inicial y posible referencia a reumatologia."
+    },
+    "RES_DERMATOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Dermatologia",
+      "descripcion": "Las lesiones en la piel, erupciones o cambios en lunares requieren evaluacion dermatologica.",
+      "esEmergencia": false,
+      "recomendacion": "No te rasques ni te automediques con cremas sin indicacion. Agenda una consulta dermatologica."
+    },
+    "RES_UROLOGIA": {
+      "esResultado": true,
+      "especialidad": "Urologia / Medicina General",
+      "descripcion": "Las molestias urinarias pueden indicar infeccion, calculos u otras condiciones del sistema genitourinario.",
+      "esEmergencia": false,
+      "recomendacion": "Aumenta el consumo de agua. Consulta con Medicina General para analisis de orina y evaluacion."
+    },
+    "RES_GINECOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Ginecologia y Obstetricia",
+      "descripcion": "Las dudas sobre salud reproductiva, embarazo o flujo anormal deben ser evaluadas por un ginecologo.",
+      "esEmergencia": false,
+      "recomendacion": "Agenda una consulta ginecologica. Si hay dolor intenso o sangrado abundante, acude a emergencia."
+    },
+    "RES_INFECTOLOGIA": {
+      "esResultado": true,
+      "especialidad": "Infectologia / Medicina General",
+      "descripcion": "La fiebre persistente puede indicar una infeccion que requiere diagnostico y tratamiento especifico.",
+      "esEmergencia": false,
+      "recomendacion": "Consulta con Medicina General para estudios de laboratorio. Si la fiebre supera los 39°C o hay dificultad para respirar, acude a emergencia."
+    },
+    "RES_MEDICINA_INTERNA": {
+      "esResultado": true,
+      "especialidad": "Medicina Interna",
+      "descripcion": "La fatiga extrema y perdida de peso sin causa aparente requieren estudio integral para descartar condiciones cronicas.",
+      "esEmergencia": false,
+      "recomendacion": "Agenda una consulta con Medicina Interna o Medicina General para estudios completos."
+    },
+    "RES_MEDICINA_GENERAL": {
+      "esResultado": true,
+      "especialidad": "Medicina General",
+      "descripcion": "Tus sintomas no indican una emergencia, pero es recomendable una evaluacion medica general para determinar la causa.",
+      "esEmergencia": false,
+      "recomendacion": "Agenda una consulta con Medicina General en el centro de salud mas cercano. Si los sintomas empeoran, no dudes en acudir a emergencia."
+    }
+  }
+}

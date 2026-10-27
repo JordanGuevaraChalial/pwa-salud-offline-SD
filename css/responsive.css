@@ -1,0 +1,277 @@
+/* ============================================================
+   ESTILOS RESPONSIVE - Adaptabilidad a diferentes pantallas
+   Cumple requisito RNF-009: adaptable a 4" - 10"
+   ============================================================ */
+
+/* ===== Dispositivos pequenos (telefonos < 360px) ===== */
+@media (max-width: 360px) {
+  :root {
+    --tamano-fuente-base: 15px;
+    --espaciado: 6px;
+  }
+
+  .app-title h1 {
+    font-size: 18px;
+  }
+
+  .app-subtitle {
+    font-size: 12px;
+  }
+
+  .tarjeta-icono {
+    font-size: 28px;
+  }
+
+  .tarjeta-texto h3 {
+    font-size: 16px;
+  }
+
+  .pregunta-texto {
+    font-size: 18px;
+  }
+
+  .nav-texto {
+    font-size: 10px;
+  }
+
+  .leyenda-mapa {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+}
+
+/* ===== Telefonos estandar (361px - 480px) ===== */
+@media (min-width: 361px) and (max-width: 480px) {
+  .tarjetas-menu {
+    gap: 12px;
+  }
+
+  .mapa-contenedor {
+    height: 55vh;
+  }
+}
+
+/* ===== Tablets pequenas y telefonos grandes (481px - 768px) ===== */
+@media (min-width: 481px) and (max-width: 768px) {
+  .tarjetas-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .tarjeta-menu {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+  }
+
+  .tarjeta-flecha {
+    display: none;
+  }
+
+  .mapa-contenedor {
+    height: 65vh;
+  }
+
+  .buscador-consejos {
+    flex-direction: row;
+  }
+
+  .opciones-respuesta {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+/* ===== Tablets y escritorios pequenos (769px - 1024px) ===== */
+@media (min-width: 769px) {
+  .app-main {
+    padding: 24px;
+    padding-bottom: 80px;
+  }
+
+  .tarjetas-menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto 32px;
+  }
+
+  .tarjeta-menu {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 20px;
+  }
+
+  .tarjeta-icono {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+
+  .tarjeta-flecha {
+    display: none;
+  }
+
+  .bienvenida {
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .aviso-legal-destacado {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .mapa-contenedor {
+    height: 70vh;
+    max-height: 600px;
+  }
+
+  .ficha-contenido, .contenido-pagina {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .lista-consejos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contenido-sintomas {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .buscador-consejos {
+    max-width: 600px;
+    margin: 0 auto 24px;
+  }
+
+  .nav-inferior {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+/* ===== Escritorios grandes (> 1024px) ===== */
+@media (min-width: 1025px) {
+  .app-header {
+    padding: 12px 32px;
+  }
+
+  .header-content {
+    max-width: 1200px;
+  }
+
+  .app-main {
+    max-width: 1200px;
+  }
+
+  .lista-consejos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .panel-filtros {
+    max-width: 500px;
+  }
+}
+
+/* ===== Orientacion horizontal (landscape) en moviles ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .app-header {
+    padding: 4px 16px;
+  }
+
+  .app-title h1 {
+    font-size: 16px;
+  }
+
+  .app-subtitle {
+    display: none;
+  }
+
+  .mapa-contenedor {
+    height: 55vh;
+    min-height: 250px;
+  }
+
+  .tarjetas-menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .tarjeta-menu {
+    padding: 12px;
+  }
+
+  .tarjeta-icono {
+    font-size: 28px;
+  }
+
+  .tarjeta-texto h3 {
+    font-size: 14px;
+  }
+
+  .tarjeta-texto p {
+    display: none;
+  }
+
+  .nav-inferior {
+    padding: 2px 0;
+  }
+
+  .nav-icono {
+    font-size: 18px;
+  }
+
+  .nav-texto {
+    display: none;
+  }
+}
+
+/* ===== Modo de alto contraste (accesibilidad) ===== */
+@media (prefers-contrast: high) {
+  :root {
+    --color-texto: #000000;
+    --color-texto-secundario: #333333;
+    --color-borde: #000000;
+    --color-fondo-tarjeta: #FFFFFF;
+  }
+
+  .tarjeta-menu, .opcion-btn, .btn-principal, .btn-secundario {
+    border-width: 3px;
+  }
+}
+
+/* ===== Reduccion de movimiento (accesibilidad) ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .marcador-usuario {
+    animation: none;
+  }
+
+  .ruta-linea {
+    animation: none;
+  }
+}
+
+/* ===== Impresion ===== */
+@media print {
+  .nav-inferior, .btn-flotante, .banner-instalacion, .toast {
+    display: none !important;
+  }
+
+  .mapa-contenedor {
+    height: 400px;
+    break-inside: avoid;
+  }
+}
