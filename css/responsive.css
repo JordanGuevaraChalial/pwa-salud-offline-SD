@@ -189,14 +189,13 @@
     display: flex;
     gap: 20px;
     padding: 16px 24px;
-    flex: 1;
+    align-items: stretch
   }
 
   #mapa {
     flex: 3; /* 75% del ancho */
     min-height: 550px;
   }
-
   .panel-lateral-escritorio {
     flex: 1; /* 25% del ancho */
     background: white;
@@ -212,14 +211,32 @@
   .leyenda-mapa {
     display: none;
   }
-
-  /* Ajustar botón flotante para que no se superponga al panel */
-  .btn-flotante {
-    bottom: 100px;
-    right: calc(25% + 40px);
+  /* Contenedor del mapa (el boton se posiciona dentro de el) */
+  .mapa-columna {
+    position: relative;
+    flex: 3;
   }
 
-  /* Estilo de los puntos de la leyenda en el panel */
+  /* Boton flotante: esquina inferior derecha DENTRO del mapa */
+  .btn-flotante {
+    position: absolute !important;
+    bottom: 16px !important;
+    right: 16px !important;
+    z-index: 1000 !important;
+  }
+
+  /* El panel lateral */
+  .panel-lateral-escritorio {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    align-self: flex-start;
+  }
+
+  .leyenda-mapa { display: none; }
+
   .punto {
     display: inline-block;
     width: 14px;

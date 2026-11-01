@@ -207,3 +207,17 @@
 @keyframes dash {
   to { stroke-dashoffset: -20; }
 }
+/* En móvil: el contenedor del mapa no necesita flex, el boton va fijo en pantalla */
+@media (max-width: 1024px) {
+  /* En móvil y tablet: el boton tambien va dentro del mapa */
+  .mapa-columna {
+    position: relative;
+    width: 100%;
+  }
+  .btn-flotante {
+    position: absolute !important;
+    bottom: 16px !important;
+    right: 16px !important;
+    z-index: 1000 !important;
+  }
+}

@@ -46,9 +46,16 @@
           <p class="app-subtitle">Santo Domingo</p>
         </div>
       </div>
-      <div id="estado-conexion" class="estado-conexion" role="status" aria-live="polite">
-        <span class="indicador" id="indicador-conexion"></span>
-        <span class="texto-estado" id="texto-conexion">Verificando...</span>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <!-- Estado de conexion (ya existente) -->
+        <div id="estado-conexion" class="estado-conexion" role="status" aria-live="polite">
+          <span class="indicador" id="indicador-conexion"></span>
+          <span class="texto-estado" id="texto-conexion">Verificando...</span>
+        </div>
+        <!-- ✅ NUEVO: Boton de instalar (oculto por defecto) -->
+        <button id="btn-instalar-header" class="btn-instalar-header" hidden aria-label="Instalar aplicacion">
+          📲 Instalar
+        </button>
       </div>
     </div>
   </header>
@@ -102,17 +109,9 @@
             la consulta medica profesional.</strong> Ante emergencias, acuda inmediatamente al centro de salud mas
           cercano.</p>
       </div>
-
-      <!-- Boton de instalacion (aparece si el navegador lo soporta) -->
-      <div id="banner-instalacion" class="banner-instalacion" hidden>
-        <p>📱 Instala esta aplicacion en tu telefono para usarla sin internet</p>
-        <button id="btn-instalar" class="btn-principal">Instalar</button>
-        <button id="btn-cerrar-banner" class="btn-secundario" aria-label="Cerrar banner de instalacion">✕</button>
-      </div>
     </section>
 
     <!-- ===== PANTALLA: MAPA ===== -->
-       <!-- ===== PANTALLA: MAPA ===== -->
     <section id="pantalla-mapa" class="pantalla" aria-label="Mapa de centros medicos" hidden>
       <div class="barra-herramientas">
         <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
@@ -151,9 +150,10 @@
         </div>
       </div>
 
-      <!-- NUEVO: Contenedor flex (mapa + panel lateral en escritorio) -->
       <div class="mapa-wrapper">
         <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos"></div>
+        
+        <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">📍</button>
 
         <!-- NUEVO: Panel lateral (solo visible en escritorio >= 1025px) -->
         <div class="panel-lateral-escritorio">
@@ -171,11 +171,7 @@
           </p>
         </div>
       </div>
-
-      <!-- Botones flotantes (se mantienen para móvil) -->
-      <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">
-        📍
-      </button>
+      
 
       <!-- Leyenda del mapa (flotante, visible SOLO en móvil; en escritorio se oculta con CSS) -->
       <div class="leyenda-mapa">
@@ -282,6 +278,14 @@
             conexion a internet.</p>
         </div>
         <div class="info-seccion">
+          <h5>🤝 Colaboradores</h5>
+          <ul>
+            <li>Universidad de las Fuerzas Armadas ESPE</li>
+            <li>Estudiante: Jordan Guevara</li>
+            <li>Tutor: Ing. Pablo Puente</li>
+          </ul>
+        </div>
+        <div class="info-seccion">
           <h5>🏥 Fuentes de datos</h5>
           <ul>
             <li>Ministerio de Salud Publica (MSP) - Ecuador</li>
@@ -290,6 +294,7 @@
             <li>OpenStreetMap (datos cartograficos)</li>
           </ul>
         </div>
+        
     </section>
 
     <!-- ===== PANTALLA: CONFIGURACION ===== -->
@@ -439,23 +444,53 @@
     }
 
     // Banner de instalacion (A2HS - Add to Home Screen)
-    let deferredPrompt;
+    let deferredPrompt = null;
+    let btnInstalarHeader = null;
+
     window.addEventListener('beforeinstallprompt', function (e) {
       e.preventDefault();
       deferredPrompt = e;
+      // Mostrar boton en el HEADER
+      btnInstalarHeader = document.getElementById('btn-instalar-header');
+      if (btnInstalarHeader) {
+        btnInstalarHeader.hidden = false;
+        btnInstalarHeader.addEventListener('click', function () {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function (resultado) {
+              console.log('[PWA] Instalacion:', resultado.outcome);
+              deferredPrompt = null;
+              if (btnInstalarHeader) btnInstalarHeader.hidden = true;
+              var banner = document.getElementById('banner-instalacion');
+              if (banner) banner.hidden = true;
+            });
+          }
+        });
+      }
+      // Opcional: tambien mostrar el banner abajo (lo puedes quitar si no lo quieres)
       var banner = document.getElementById('banner-instalacion');
       if (banner) banner.hidden = false;
     });
 
+    // Cuando se instala, ocultar ambos botones
+    window.addEventListener('appinstalled', function () {
+      console.log('[PWA] Aplicacion instalada');
+      if (btnInstalarHeader) btnInstalarHeader.hidden = true;
+      var banner = document.getElementById('banner-instalacion');
+      if (banner) banner.hidden = true;
+    });
+
+    // Boton cerrar banner + boton instalar del banner
     document.addEventListener('DOMContentLoaded', function () {
-      var btnInstalar = document.getElementById('btn-instalar');
-      if (btnInstalar) {
-        btnInstalar.addEventListener('click', function () {
+      var btnInstalarBanner = document.getElementById('btn-instalar');
+      if (btnInstalarBanner) {
+        btnInstalarBanner.addEventListener('click', function () {
           if (deferredPrompt) {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then(function () {
               deferredPrompt = null;
               document.getElementById('banner-instalacion').hidden = true;
+              if (btnInstalarHeader) btnInstalarHeader.hidden = true;
             });
           }
         });

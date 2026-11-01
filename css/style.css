@@ -133,6 +133,38 @@ body {
   background: #FFA726;
   box-shadow: 0 0 6px #FFA726;
 }
+/* === BOTON DE INSTALACION EN EL HEADER === */
+.btn-instalar-header {
+  background: white;
+  color: #1E88E5;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.btn-instalar-header:hover {
+  background: #E3F2FD;
+  transform: scale(1.05);
+}
+.btn-instalar-header:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* En movil, mostrar solo el icono (sin texto) para ahorrar espacio */
+@media (max-width: 480px) {
+  .btn-instalar-header {
+    font-size: 0;
+    padding: 8px 10px;
+  }
+  .btn-instalar-header::before {
+    content: "📲";
+    font-size: 16px;
+  }
+}
 
 /* ===== CONTENIDO PRINCIPAL ===== */
 .app-main {
@@ -148,7 +180,11 @@ body {
 }
 
 .pantalla[hidden] {
-  display: none;
+  display: none !important;
+}
+#mapa{
+  position:relative;
+  z-index:1;
 }
 
 /* ===== PANTALLA DE INICIO ===== */
