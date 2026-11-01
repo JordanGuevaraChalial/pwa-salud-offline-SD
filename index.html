@@ -112,6 +112,7 @@
     </section>
 
     <!-- ===== PANTALLA: MAPA ===== -->
+       <!-- ===== PANTALLA: MAPA ===== -->
     <section id="pantalla-mapa" class="pantalla" aria-label="Mapa de centros medicos" hidden>
       <div class="barra-herramientas">
         <button class="btn-atras" onclick="UI.mostrarPantalla('inicio')" aria-label="Volver al inicio">← Atras</button>
@@ -150,14 +151,33 @@
         </div>
       </div>
 
-      <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos"></div>
+      <!-- NUEVO: Contenedor flex (mapa + panel lateral en escritorio) -->
+      <div class="mapa-wrapper">
+        <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos"></div>
 
-      <!-- Botones flotantes -->
+        <!-- NUEVO: Panel lateral (solo visible en escritorio >= 1025px) -->
+        <div class="panel-lateral-escritorio">
+          <h4 style="margin-top:0;">🏥 Leyenda</h4>
+          <p><span class="punto" style="background:#E53935"></span> Hospital</p>
+          <p><span class="punto" style="background:#1E88E5"></span> Centro de Salud</p>
+          <p><span class="punto" style="background:#FB8C00"></span> Clínica</p>
+          <p><span class="punto" style="background:#8E24AA"></span> IESS</p>
+          <hr style="margin:16px 0; border:none; border-top:1px solid #eee;">
+          <h4>💡 Cómo usar</h4>
+          <p style="font-size:14px; color:#616161; line-height:1.6;">
+            • Toca un marcador para ver detalles del centro<br>
+            • Usa 📍 para ubicarte sin internet<br>
+            • Filtra por tipo o institución con 🔍
+          </p>
+        </div>
+      </div>
+
+      <!-- Botones flotantes (se mantienen para móvil) -->
       <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">
         📍
       </button>
 
-      <!-- Leyenda del mapa -->
+      <!-- Leyenda del mapa (flotante, visible SOLO en móvil; en escritorio se oculta con CSS) -->
       <div class="leyenda-mapa">
         <span><span class="leyenda-color" style="background:#E53935"></span> Hospital</span>
         <span><span class="leyenda-color" style="background:#1E88E5"></span> Centro de Salud</span>
@@ -165,6 +185,7 @@
         <span><span class="leyenda-color" style="background:#8E24AA"></span> IESS</span>
       </div>
     </section>
+    
 
     <!-- ===== PANTALLA: FICHA DE CENTRO MEDICO ===== -->
     <section id="pantalla-ficha-centro" class="pantalla" aria-label="Ficha de centro medico" hidden>

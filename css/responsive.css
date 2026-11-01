@@ -126,6 +126,8 @@
   .mapa-contenedor {
     height: 70vh;
     max-height: 600px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
   }
 
   .ficha-contenido, .contenido-pagina {
@@ -176,6 +178,55 @@
 
   .panel-filtros {
     max-width: 500px;
+  }
+    /* ===== LAYOUT 2 COLUMNAS: Mapa izquierda + Panel derecha ===== */
+  #pantalla-mapa {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mapa-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 16px 24px;
+    flex: 1;
+  }
+
+  #mapa {
+    flex: 3; /* 75% del ancho */
+    min-height: 550px;
+  }
+
+  .panel-lateral-escritorio {
+    flex: 1; /* 25% del ancho */
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    align-self: flex-start;
+    position: sticky;
+    top: 16px;
+  }
+
+  /* Ocultar leyenda flotante en escritorio (ahora está en el panel) */
+  .leyenda-mapa {
+    display: none;
+  }
+
+  /* Ajustar botón flotante para que no se superponga al panel */
+  .btn-flotante {
+    bottom: 100px;
+    right: calc(25% + 40px);
+  }
+
+  /* Estilo de los puntos de la leyenda en el panel */
+  .punto {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
   }
 }
 

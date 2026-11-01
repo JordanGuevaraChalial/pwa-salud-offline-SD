@@ -14,6 +14,9 @@
   --color-primario: #1E88E5;
   --color-primario-oscuro: #1565C0;
   --color-secundario: #43A047;
+  --color-secundario-oscuro: #2E7D32;
+  --color-terciario: #FFC107;
+  --color-terciario-oscuro: #FF8F00;
   --color-alerta: #E53935;
   --color-advertencia: #FB8C00;
   --color-texto: #212121;
@@ -220,10 +223,11 @@ body {
   color: var(--color-primario);
   flex-shrink: 0;
 }
+/* ===== TARJETAS DE MENÚ ===== */
 
 .tarjeta-mapa { border-left: 5px solid var(--color-primario); }
-.tarjeta-sintomas { border-left: 5px solid var(--color-secundario); }
-.tarjeta-consejos { border-left: 5px solid var(--color-advertencia); }
+.tarjeta-sintomas { border-left: 5px solid var(--color-primario-oscuro); }
+.tarjeta-consejos { border-left: 5px solid var(--color-secundario); }
 
 /* ===== AVISOS LEGALES ===== */
 .aviso-legal-destacado {
@@ -525,7 +529,7 @@ input:focus, select:focus {
 
 .tag.servicio {
   background: #E8F5E9;
-  color: #2E7D32;
+  color: var(--color-secundario);
 }
 
 .btn-llamar, .btn-ruta {
