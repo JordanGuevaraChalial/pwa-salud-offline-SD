@@ -254,7 +254,7 @@
           <h4>Salud Offline Santo Domingo</h4>
           <p>Version: <strong id="app-version">1.1.0</strong></p>
           <p>Version de datos: <strong id="datos-version">1.1.0</strong> (Actualizado: <span
-              id="datos-fecha">2026-10-01</span>)</p>
+              id="datos-fecha"></span>)</p>
         </div>
         <div class="info-seccion">
           <h5>📋 Sobre el proyecto</h5>
@@ -492,6 +492,16 @@
       var panel = document.getElementById('panel-leyenda');
       if (panel) panel.hidden = !panel.hidden;
     }
+    // Poner la fecha de actualizacion automaticamente (hoy)
+    document.addEventListener('DOMContentLoaded', function () {
+      var fecha = new Date();
+      var dia = String(fecha.getDate()).padStart(2, '0');
+      var mes = String(fecha.getMonth() + 1).padStart(2, '0');
+      var anio = fecha.getFullYear();
+      var fechaFormateada = dia + '/' + mes + '/' + anio; // Ej: 01/11/2026
+      var elementoFecha = document.getElementById('datos-fecha');
+      if (elementoFecha) elementoFecha.textContent = fechaFormateada;
+    });
   </script>
 
 </body>
