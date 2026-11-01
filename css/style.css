@@ -889,7 +889,15 @@ input:focus, select:focus {
 .toast[hidden] {
   display: none;
 }
-
+/* Panel "Cómo usar": en CELULAR se ve como TARJETA debajo del mapa */
+.panel-lateral-escritorio {
+  display: block;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
 /* ===== UTILIDADES ===== */
 .texto-centrado { text-align: center; }
 .mt-1 { margin-top: var(--espaciado); }

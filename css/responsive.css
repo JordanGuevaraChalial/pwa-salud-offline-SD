@@ -245,6 +245,9 @@
     margin-right: 10px;
     vertical-align: middle;
   }
+  .panel-lateral-escritorio {
+    display: block;
+  }
 }
 
 /* ===== Orientacion horizontal (landscape) en moviles ===== */

@@ -7,9 +7,9 @@
    ============================================================ */
 
 // Nombres de las caches (versionar para forzar actualizacion)
-const CACHE_ESTATICO = 'salud-offline-estatico-v1';
-const CACHE_MAPAS = 'salud-offline-mapas-v1';
-const CACHE_DINAMICO = 'salud-offline-dinamico-v1';
+const CACHE_ESTATICO = 'salud-offline-estatico-v2';
+const CACHE_MAPAS = 'salud-offline-mapas-v2';
+const CACHE_DINAMICO = 'salud-offline-dinamico-v2';
 
 // Archivos esenciales para precache (se descargan en la instalacion)
 const ARCHIVOS_PRECACHE = [

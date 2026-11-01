@@ -203,6 +203,50 @@
   stroke-dasharray: 10, 10;
   animation: dash 1s linear infinite;
 }
+/* Boton de Leyenda */
+.btn-leyenda {
+  position: absolute;
+  top: 80px;           /* Debajo de la barra de herramientas */
+  right: 16px;
+  background: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #1E88E5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 999;
+}
+.btn-leyenda:hover {
+  background: #E3F2FD;
+}
+
+/* Panel de Leyenda (desplegable) */
+.panel-leyenda {
+  position: absolute;
+  top: 120px;
+  right: 16px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 999;
+  min-width: 160px;
+}
+.panel-leyenda p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+.punto {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
 
 @keyframes dash {
   to { stroke-dashoffset: -20; }

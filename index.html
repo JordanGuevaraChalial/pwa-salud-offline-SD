@@ -151,18 +151,12 @@
       </div>
 
       <div class="mapa-wrapper">
-        <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos"></div>
+        <div id="mapa" class="mapa-contenedor" role="application" aria-label="Mapa interactivo de centros medicos">
+          <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">📍</button>
+        </div>
         
-        <button class="btn-flotante" onclick="Mapa.obtenerMiUbicacion()" aria-label="Obtener mi ubicacion">📍</button>
-
-        <!-- NUEVO: Panel lateral (solo visible en escritorio >= 1025px) -->
+        <!-- Panel lateral (solo visible en escritorio >= 1025px) -->
         <div class="panel-lateral-escritorio">
-          <h4 style="margin-top:0;">🏥 Leyenda</h4>
-          <p><span class="punto" style="background:#E53935"></span> Hospital</p>
-          <p><span class="punto" style="background:#1E88E5"></span> Centro de Salud</p>
-          <p><span class="punto" style="background:#FB8C00"></span> Clínica</p>
-          <p><span class="punto" style="background:#8E24AA"></span> IESS</p>
-          <hr style="margin:16px 0; border:none; border-top:1px solid #eee;">
           <h4>💡 Cómo usar</h4>
           <p style="font-size:14px; color:#616161; line-height:1.6;">
             • Toca un marcador para ver detalles del centro<br>
@@ -170,15 +164,6 @@
             • Filtra por tipo o institución con 🔍
           </p>
         </div>
-      </div>
-      
-
-      <!-- Leyenda del mapa (flotante, visible SOLO en móvil; en escritorio se oculta con CSS) -->
-      <div class="leyenda-mapa">
-        <span><span class="leyenda-color" style="background:#E53935"></span> Hospital</span>
-        <span><span class="leyenda-color" style="background:#1E88E5"></span> Centro de Salud</span>
-        <span><span class="leyenda-color" style="background:#FB8C00"></span> Clinica</span>
-        <span><span class="leyenda-color" style="background:#8E24AA"></span> IESS</span>
       </div>
     </section>
     
@@ -267,8 +252,8 @@
         <div class="app-info">
           <span class="app-icon-grande" aria-hidden="true">🏥</span>
           <h4>Salud Offline Santo Domingo</h4>
-          <p>Version: <strong id="app-version">1.0.0</strong></p>
-          <p>Version de datos: <strong id="datos-version">1.0.0</strong> (Actualizado: <span
+          <p>Version: <strong id="app-version">1.1.0</strong></p>
+          <p>Version de datos: <strong id="datos-version">1.1.0</strong> (Actualizado: <span
               id="datos-fecha">2026-10-01</span>)</p>
         </div>
         <div class="info-seccion">
@@ -502,6 +487,11 @@
         });
       }
     });
+    // Mostrar/Ocultar leyenda
+    function toggleLeyenda() {
+      var panel = document.getElementById('panel-leyenda');
+      if (panel) panel.hidden = !panel.hidden;
+    }
   </script>
 
 </body>
